@@ -1,6 +1,7 @@
 #pragma once
 
 #ifdef XE_PLATFORM_WINDOWS
+#pragma execution_character_set("utf-8")
 #	ifdef XE_BUILD_DLL
 #		define XENGINE_API _declspec(dllexport)
 #	else
