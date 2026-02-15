@@ -1,6 +1,7 @@
 #pragma once
 // For Application
 #include "XEngine/Application.h"
+#include "XEngine//Layer.h"
 #include "XEngine/log.h"
 
 //--------------Entry Point------------

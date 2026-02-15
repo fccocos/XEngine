@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -9,11 +9,15 @@
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Dist|x64">
+      <Configuration>Dist</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{D342B922-3F22-38BE-483A-C394B4989E1F}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{917fe9fc-a7cb-4195-a090-a9e249f7d179}</ProjectGuid>
     <RootNamespace>XEngine</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -21,20 +25,23 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
-  </ImportGroup>
-  <ImportGroup Label="Shared">
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -42,50 +49,154 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)\bin\$(Configuration)-$(Platform)\$(ProjectName)</OutDir>
-    <IntDir>$(SolutionDir)\bin-int\$(Configuration)-$(Platform)\$(ProjectName)</IntDir>
-    <IncludePath>$(SolutionDir)XEngine\vendor\spdlog\include;$(IncludePath)</IncludePath>
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(ProjectDir)..\bin\Debug-windows-x86_64\XEngine\</OutDir>
+    <IntDir>$(ProjectDir)..\bin-int\Debug-windows-x86_64\XEngine\</IntDir>
+    <TargetName>XEngine</TargetName>
+    <TargetExt>.dll</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)..\bin\Release-windows-x86_64\XEngine\</OutDir>
+    <IntDir>$(ProjectDir)..\bin-int\Release-windows-x86_64\XEngine\</IntDir>
+    <TargetName>XEngine</TargetName>
+    <TargetExt>.dll</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)..\bin\Dist-windows-x86_64\XEngine\</OutDir>
+    <IntDir>$(ProjectDir)..\bin-int\Dist-windows-x86_64\XEngine\</IntDir>
+    <TargetName>XEngine</TargetName>
+    <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>xepch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>XE_PLATFORM_WINDOWS;XE_BUILD_DLL;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;XE_PLATFORM_WINDOWS;XE_BUILD_DLL;GLFW_INCLUDE_NONE;XE_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;vendor\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <AdditionalOptions>/utf-8 /MDd %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>F:\workspace\cppstation\XEngine\bin\Debug-x64\XEngine;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>..\bin\Debug-windows-x86_64\XEngine\XEngine.lib</ImportLibrary>
     </Link>
+    <ProjectReference>
+    </ProjectReference>
+    <PostBuildEvent>
+      <Command>IF EXIST ..\bin\Debug-windows-x86_64\XEngine\XEngine.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\XEngine\XEngine.dll ..\bin\Debug-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\XEngine\XEngine.dll ..\bin\Debug-windows-x86_64\Sandbox &gt; nul)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>xepch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;XE_PLATFORM_WINDOWS;XE_BUILD_DLL;GLFW_INCLUDE_NONE;XE_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;vendor\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalOptions>/utf-8 /MD %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>..\bin\Release-windows-x86_64\XEngine\XEngine.lib</ImportLibrary>
     </Link>
+    <ProjectReference>
+    </ProjectReference>
+    <PostBuildEvent>
+      <Command>IF EXIST ..\bin\Release-windows-x86_64\XEngine\XEngine.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\XEngine\XEngine.dll ..\bin\Release-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\XEngine\XEngine.dll ..\bin\Release-windows-x86_64\Sandbox &gt; nul)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>xepch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;XE_PLATFORM_WINDOWS;XE_BUILD_DLL;GLFW_INCLUDE_NONE;XE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;vendor\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalOptions>/utf-8 /MD %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <ExternalWarningLevel>Level3</ExternalWarningLevel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>..\bin\Dist-windows-x86_64\XEngine\XEngine.lib</ImportLibrary>
+    </Link>
+    <ProjectReference>
+    </ProjectReference>
+    <PostBuildEvent>
+      <Command>IF EXIST ..\bin\Dist-windows-x86_64\XEngine\XEngine.dll\ (xcopy /Q /E /Y /I ..\bin\Dist-windows-x86_64\XEngine\XEngine.dll ..\bin\Dist-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows-x86_64\XEngine\XEngine.dll ..\bin\Dist-windows-x86_64\Sandbox &gt; nul)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\XEngine\log.h" />
-    <ClInclude Include="src\XEngine\Application.h" />
-    <ClInclude Include="src\XEngine\core.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\XEngine.h" />
+    <ClInclude Include="src\XEngine\Application.h" />
     <ClInclude Include="src\XEngine\EntryPoint.h" />
+    <ClInclude Include="src\XEngine\Event\ApplicationEvent.h" />
+    <ClInclude Include="src\XEngine\Event\Event.h" />
+    <ClInclude Include="src\XEngine\Event\KeyEvent.h" />
+    <ClInclude Include="src\XEngine\Event\MouseEvent.h" />
+    <ClInclude Include="src\XEngine\Layer.h" />
+    <ClInclude Include="src\XEngine\LayerStack.h" />
+    <ClInclude Include="src\XEngine\Window.h" />
+    <ClInclude Include="src\XEngine\core.h" />
+    <ClInclude Include="src\XEngine\log.h" />
+    <ClInclude Include="src\xepch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\XEngine\log.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\XEngine\Application.cpp" />
+    <ClCompile Include="src\XEngine\Layer.cpp" />
+    <ClCompile Include="src\XEngine\LayerStack.cpp" />
+    <ClCompile Include="src\XEngine\log.cpp" />
+    <ClCompile Include="src\xepch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">
+      <Project>{154B857C-0182-860D-AA6E-6C109684020F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="vendor\glad\glad.vcxproj">
+      <Project>{DD62977C-C999-980D-7286-7E105E9C140F}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
