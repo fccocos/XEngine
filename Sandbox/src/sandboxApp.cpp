@@ -3,13 +3,15 @@
 
 class ExampleLayer : public XEngine::Layer {
 public:
-	ExampleLayer() :Layer("Example"){}
+	ExampleLayer() :Layer("Example") {}
 	void OnUpdate() override {
-		XE_INFO("ExampleLayer::Update");
+		if (XEngine::Input::IsKeyPressed(XE_KEY_TAB))
+			XE_INFO("Tab key is pressed!");
 	}
 	void OnEvent(XEngine::Event& e) override {
 		XE_TRAC("{0}", e.ToString());
 	}
+
 };
 
 class Sandbox :public XEngine::Application {

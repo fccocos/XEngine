@@ -5,8 +5,9 @@
 #include "XEngine/Event/KeyEvent.h"
 #include "XEngine/Event/MouseEvent.h"
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include "Platform/OpenGL/OpenGLContext.h"
+
+
 namespace XEngine {
 	static bool s_GLFWInitialized = false;
 
@@ -31,8 +32,7 @@ namespace XEngine {
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
-
-		XE_CORE_INFO("Create window {0} ({1}, {2})", props.Title, props.Width, props.Height);
+		XE_CORE_TRAC("Create window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
 		if (!s_GLFWInitialized) {
 			// TODO: glfwTernimate on system shutdown
@@ -43,9 +43,9 @@ namespace XEngine {
 		}
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
-		int status = gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress));
-		XE_CORE_ASSERT(status, "Failed to initilize Glad");
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Init();
+		
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
@@ -69,18 +69,18 @@ namespace XEngine {
 			switch (action) {
 				case GLFW_PRESS:
 				{
-					KeyPressEvent ev(key, 0);
+					KeyPressedEvent ev(key, 0);
 					data.EventCallback(ev);
 					break;
 				}
 				case GLFW_REPEAT:
 				{
-					KeyPressEvent ev(key, 1);
+					KeyPressedEvent ev(key, 1);
 					data.EventCallback(ev);
 				}
 				case GLFW_RELEASE:
 				{
-					KeyReleaseEvent ev(key);
+					KeyReleasedEvent ev(key);
 					data.EventCallback(ev);
 				}
 			}
@@ -113,6 +113,12 @@ namespace XEngine {
 			MouseMovementEvent e(static_cast<float>(xPos), static_cast<float>(yPos));
 			data.EventCallback(e);
 		});
+
+		glfwSetCharCallback(m_Window, [](GLFWwindow* window,unsigned int keycode) {
+			WindowData& data = *reinterpret_cast<WindowData*>(glfwGetWindowUserPointer(window));
+			KeyTypedEvent e(keycode);
+			data.EventCallback(e);
+		});
 	}
 
 	void WindowsWindow::Shutdown() {
@@ -121,7 +127,8 @@ namespace XEngine {
 
 	void WindowsWindow::OnUpdate() {
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
+		
 	}
 
 	void WindowsWindow::SetVSync(bool enabled) {

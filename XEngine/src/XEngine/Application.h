@@ -1,9 +1,11 @@
-#pragma once
+ï»¿#pragma once
 #include "core.h"
 #include "Event/Event.h"
 #include "XEngine/Window.h"
 #include "XEngine/Event/ApplicationEvent.h"
 #include "XEngine/LayerStack.h"
+
+#include "XEngine/ImGui/ImGuiLayer.h"
 
 namespace  XEngine {
 	class XENGINE_API Application
@@ -11,16 +13,26 @@ namespace  XEngine {
 	public:
 		Application();
 		virtual ~Application();
-		void OnEvent(Event& e); // ×¢²áÊÂ¼şº¯Êı
+		void OnEvent(Event& e); // æ³¨å†Œäº‹ä»¶å‡½æ•°
 		void run();
 
-		void PushLayer(Layer* layer); // Ñ¹Èë²ã
-		void PushOverlay(Layer* layer); // Ñ¹Èë¸²¸Ç²ã£¬¾ßÓĞÓÅÏÈäÖÈ¾È¨
+		void PushLayer(Layer* layer); // å‹å…¥å±‚
+		void PushOverlay(Layer* layer); // å‹å…¥è¦†ç›–å±‚ï¼Œå…·æœ‰ä¼˜å…ˆæ¸²æŸ“æƒ
+
+		static inline Application& Get() { return *s_Instance; }
+
+		inline Window& GetWindow() const { return *m_Window; }
+
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+
+
+	private:
+		static Application* s_Instance;
 	};
 
 	// To be defined in CLIENT

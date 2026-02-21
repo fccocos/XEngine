@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "XEngine/core.h"
 #include "XEngine/Event/Event.h"
 namespace XEngine {
@@ -8,10 +8,13 @@ namespace XEngine {
 		Layer(const std::string& name = "Layer");
 		virtual ~Layer();
 
-		virtual void OnAttach() {} // ³õÊ¼»¯
-		virtual void OnDetach() {} // ½ÓÊÜ
-		virtual void OnUpdate() {} // ¸üĞÂ£¬Ã¿Õë¶¼»á·¢Éú
-		virtual void OnEvent(Event& event) {}  // Ã¿Ò»²ãµÄÊÂ¼ş×¢²á
+		virtual void OnAttach() {} // åˆå§‹åŒ–
+		virtual void OnDetach() {} // æ¥å—
+		virtual void OnUpdate() {} // æ›´æ–°ï¼Œæ¯é’ˆéƒ½ä¼šå‘ç”Ÿ
+		virtual void OnImGuiRender() {} // ImGuiæ¸²æŸ“
+		virtual void Begin() {};
+		virtual void End() {};
+		virtual void OnEvent(Event& event) {}  // æ¯ä¸€å±‚çš„äº‹ä»¶æ³¨å†Œ
 
 		inline const std::string& GetName() const { return m_DebugName; }
 	private:

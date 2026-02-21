@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Event.h"
 namespace XEngine {
 	class XENGINE_API KeyEvent: public Event {
@@ -10,10 +10,10 @@ namespace XEngine {
 		int m_KeyCode;
 	};
 
-	class XENGINE_API KeyPressEvent :public KeyEvent {
+	class XENGINE_API KeyPressedEvent :public KeyEvent {
 	public:
-		KeyPressEvent(int keycode, int repeatCount) : KeyEvent(keycode),m_RepeatCount(repeatCount) {}
-		inline int GetRepeatCount() const { return m_RepeatCount; } // »ñÈ¡°´¼üÖØ¸´µÄ´ÎÊı
+		KeyPressedEvent(int keycode, int repeatCount) : KeyEvent(keycode),m_RepeatCount(repeatCount) {}
+		inline int GetRepeatCount() const { return m_RepeatCount; } // è·å–æŒ‰é”®é‡å¤çš„æ¬¡æ•°
 		std::string ToString() const override {
 			std::stringstream ss;
 			ss << "KeyPressedEvent" << m_KeyCode << " (" << m_RepeatCount << " repeats";
@@ -26,9 +26,9 @@ namespace XEngine {
 		int m_RepeatCount;
 	};
 
-	class XENGINE_API KeyReleaseEvent : public KeyEvent {
+	class XENGINE_API KeyReleasedEvent : public KeyEvent {
 	public:
-		KeyReleaseEvent(int keycode) :KeyEvent(keycode) {}
+		KeyReleasedEvent(int keycode) :KeyEvent(keycode) {}
 		std::string ToString()const override {
 			std::stringstream ss;
 			ss << "KeyRealsedEvent: " << m_KeyCode;
@@ -36,5 +36,19 @@ namespace XEngine {
 		}
 
 		EVENT_CLASS_TYPE(KeyReleased)
+	};
+
+	class XENGINE_API KeyTypedEvent :public KeyEvent {
+	public:
+		KeyTypedEvent(int keycode) : KeyEvent(keycode){}
+		std::string ToString() const override {
+			std::stringstream ss;
+			ss << "KeyTypedEvent" << m_KeyCode;
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(KeyTyped);
+
+	
 	};
 }

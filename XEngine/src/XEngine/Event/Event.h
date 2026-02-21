@@ -14,7 +14,7 @@ namespace XEngine {
 		None = 0,                                                             // 没有事件发生
 		WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved, // 窗口事件
 		AppTick, AppUpdate, AppRender,                                        // App事件
-		KeyPressed, KeyReleased,                                              // 按键事件
+		KeyPressed, KeyReleased, KeyTyped,                                             // 按键事件
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled,   // 鼠标事件
 	};
 

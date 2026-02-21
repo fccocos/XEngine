@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "XEngine/Window.h"
+#include "XEngine/Renderer/GraphicsContext.h"
 
-struct GLFWwindow;
 
 namespace XEngine {
 	class WindowsWindow: public Window
@@ -21,12 +21,15 @@ namespace XEngine {
 		}
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
+
+		inline virtual void* GetNativeWindow() const { return m_Window; }
 	private:
 		virtual void Init(const WindowProps& props);
 		virtual void Shutdown();
 	
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		struct WindowData {
 			std::string Title;

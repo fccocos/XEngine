@@ -1,4 +1,4 @@
-#pragma once
+Ôªø#pragma once
 
 #include "xepch.h"
 
@@ -6,7 +6,7 @@
 #include "XEngine/Event/Event.h"
 
 namespace XEngine {
-	// ¥∞ø⁄ Ù–‘
+	// Á™óÂè£Â±ûÊÄß
 	struct WindowProps {
 		std::string Title;
 		unsigned int Width;
@@ -32,6 +32,8 @@ namespace XEngine {
 		virtual void SetEventCallback(const EventCallbackFn& callabck) = 0;
 		virtual void SetVSync(bool enabled) = 0;
 		virtual bool IsVSync() const = 0;
+
+		virtual void* GetNativeWindow() const = 0;
 
 		static Window* Create(const WindowProps& props = WindowProps());
 	};

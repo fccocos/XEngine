@@ -13,17 +13,23 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "XEngine/vendor/GLFW/include"
 IncludeDir["glad"] = "XEngine/vendor/glad/include"
+IncludeDir["ImGui"] = "XEngine/vendor/imgui"
+IncludeDir["glm"] = "XEngine/vendor/glm"
 
 include "XEngine/vendor/GLFW"
 include "XEngine/vendor/glad"
+include "XEngine/vendor/imgui"
 
 ------------------------------------------------------------------------
 ------------------------ XEngine 项目 -----------------------------------
 -------------------------------------------------------------------------
 project "XEngine"
     location "XEngine"
-    kind "SharedLib"
+    kind "StaticLib"
     language "C++"
+    cppdialect "C++17"
+    buildoptions "/utf-8"
+    staticruntime "on"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -34,62 +40,52 @@ project "XEngine"
     files {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp",
+        "%{prj.name}/vendor/glm/glm/**.hpp",
+        "%{prj.name}/vendor/glm/glm/**.inl"
     }
 
+    defines {
+        "_CRT_SECURE_NO_WARNINGS",
+    }
     includedirs {
         "%{prj.name}/vendor/spdlog/include",
         "%{prj.name}/src",
         "%{IncludeDir.GLFW}",
-        "%{IncludeDir.glad}"
+        "%{IncludeDir.glad}",
+        "%{IncludeDir.ImGui}",
+        "%{IncludeDir.glm}"
     }
 
     -- 只链接必要的库，CRT 库由编译选项自动链接（关键！）
     links {
         "GLFW",
         "glad",
+        "ImGui",
         "opengl32.lib",
     }
 
-    defines {
-        "_CRT_SECURE_NO_WARNINGS",
-        "_CRT_NONSTDC_NO_DEPRECATE"
-    }
-
     filter "system:windows"
-        cppdialect "C++17"
-        buildoptions "/utf-8"
         defines {
             "XE_PLATFORM_WINDOWS",
             "XE_BUILD_DLL",
-            "GLFW_INCLUDE_NONE"
+            "GLFW_INCLUDE_NONE",
+            "XE_ENABLE_ASSERTS",
         }
-
-    -- 构建后拷贝 DLL 到 Sandbox 输出目录（修正命令格式）
-    postbuildcommands{
-         -- 转义引号，确保路径含空格时正常执行；补充 /Y 覆盖文件
-         ("{COPY} %{cfg.buildtarget.abspath} ../bin/" .. outputdir .. "/Sandbox")
-    }
 
     filter "configurations:Debug"
         defines {"XE_DEBUG"}
         runtime "Debug"
         symbols "On"
-        buildoptions "/MDd"  -- 强制使用动态调试 CRT
-        -- 移除手动链接 CRT 库，让 VS 自动匹配
 
     filter "configurations:Release"
         defines {"XE_RELEASE"}
         runtime "Release"
         optimize "On"
-        symbols "On"
-        buildoptions "/MD"  -- 强制动态发布 CRT
 
     filter "configurations:Dist"
         defines {"XE_DIST"}
         runtime "Release"
         optimize "On"
-        symbols "Off"
-        buildoptions "/MD"
 
 -----------------------------------------------------------------------------------
 ---------------------------------- Sandbox项目 -------------------------------------
@@ -98,6 +94,9 @@ project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"
     language "C++"
+    cppdialect "C++17"
+    buildoptions "/utf-8"
+    staticruntime "On"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -115,8 +114,6 @@ project "Sandbox"
     links { "XEngine" }
 
     filter "system:windows"
-        cppdialect "C++17"
-        buildoptions "/utf-8"
         defines {
             "XE_PLATFORM_WINDOWS",
             "_CRT_SECURE_NO_WARNINGS"
@@ -126,18 +123,13 @@ project "Sandbox"
         defines {"XE_DEBUG"}
         runtime "Debug"
         symbols "On"
-        buildoptions "/MDd"  -- 和 XEngine 保持一致
 
     filter "configurations:Release"
         defines {"XE_RELEASE"}
         runtime "Release"
         optimize "On"
-        symbols "On"
-        buildoptions "/MD"
 
     filter "configurations:Dist"
         defines {"XE_DIST"}
         runtime "Release"
         optimize "On"
-        symbols "Off"
-        buildoptions "/MD"
