@@ -7,6 +7,13 @@
 
 #include "XEngine/ImGui/ImGuiLayer.h"
 
+#include "XEngine/Renderer/Shader.h"
+
+#include "XEngine/Renderer/Buffer.h"
+
+#include "XEngine/Renderer/VertexArray.h"
+
+
 namespace  XEngine {
 	class XENGINE_API Application
 	{
@@ -30,6 +37,11 @@ namespace  XEngine {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
+		std::shared_ptr<Shader> m_Shader;
+		std::shared_ptr<VertexArray> m_VertexArray;
+
+		std::shared_ptr<Shader> m_SquareShader;
+		std::shared_ptr<VertexArray> m_SquareVA;
 
 	private:
 		static Application* s_Instance;
