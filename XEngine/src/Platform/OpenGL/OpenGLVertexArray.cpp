@@ -38,7 +38,7 @@ namespace XEngine {
 		glBindVertexArray(0);
 	}
 
-	void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer) {
+	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) {
 		XE_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout!");
 		
 		glBindVertexArray(m_VertexArryID);
@@ -59,17 +59,17 @@ namespace XEngine {
 		m_VertexBuffers.push_back(vertexBuffer);
 	}
 
-	void OpenGLVertexArray::setIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer) {
+	void OpenGLVertexArray::setIndexBuffer(const Ref<IndexBuffer>& indexBuffer) {
 		glBindVertexArray(m_VertexArryID);
 		indexBuffer->Bind();
 
 		m_IndexBuffer = indexBuffer;
 	}
 
-	const std::vector<std::shared_ptr<VertexBuffer>>& OpenGLVertexArray::GetVertexBuffers() const {
+	const std::vector<Ref<VertexBuffer>>& OpenGLVertexArray::GetVertexBuffers() const {
 		return m_VertexBuffers;
 	}
-	const std::shared_ptr<IndexBuffer>& OpenGLVertexArray::GetIndexBuffers() const {
+	const Ref<IndexBuffer>& OpenGLVertexArray::GetIndexBuffers() const {
 		return m_IndexBuffer;
 	}
 

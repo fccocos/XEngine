@@ -1,18 +1,26 @@
 #pragma once
+#include "RenderCommand.h"
+#include "OrthographicCamera.h"
+#include "Shader.h"
 
 namespace XEngine {
-	enum class RendererAPI {
-		None = 0,
-		OpenGL,
-		Vulkan,
-		XD11,
-		XD12
-	};
-
+	
 	class Renderer {
 	public:
-		inline static RendererAPI GetAPI() { return s_RendererAPI; }
+
+		static void Init();
+		static void OnWindowResize(unsigned int width, unsigned int height);
+		static void BeginScense(const OrthographicCamera& camera);
+		static void EndScense();
+
+		static void Submit(const Ref<Shader>& Shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform = glm::mat4(1.0f));
+
+		inline static RendererAPI::API GetAPI() { return s_RendererAPI; }
 	private:
-		static RendererAPI s_RendererAPI;
+		struct ScenseData {
+			glm::mat4 ViewProjectionMatrix;
+		};
+		static ScenseData* m_ScenseData;
+		static RendererAPI::API s_RendererAPI;
 	};
 }

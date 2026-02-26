@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <memory>
 
 #ifdef XE_PLATFORM_WINDOWS
 #	if XE_DYNAMIC_LINK
@@ -26,3 +27,13 @@
 #define BIT(x) (0x01<<(x))
 
 #define EX_BIND_EVENT_FN(fn)  std::bind(&fn, this, std::placeholders::_1) // 事件绑定函数
+
+namespace XEngine {
+
+	template<typename T>
+	using Scope = std::unique_ptr<T>;
+
+	template<typename T>
+	using Ref = std::shared_ptr<T>;
+
+}

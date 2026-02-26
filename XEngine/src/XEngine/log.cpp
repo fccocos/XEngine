@@ -9,7 +9,7 @@ namespace XEngine {
 
 	void Log::Init() {
 		spdlog::set_pattern("%^[%T] %n: %v%$");
-		// Ceate core log
+		// Create core log
 		s_CoreLogger = spdlog::stdout_color_mt("XENGINE");
 		// set log level
 		s_CoreLogger->set_level(spdlog::level::trace);

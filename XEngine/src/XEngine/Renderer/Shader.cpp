@@ -2,77 +2,56 @@
 
 #include "Shader.h"
 
-#include <glad/glad.h>
-
+#include "Renderer.h"
+#include "Platform/OpenGL/OpenGLShader.h"
 namespace XEngine {
-	Shader::Shader(const std::string& vertexSrc, const std::string& fragmentSrc) {
-		unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-		const char* vertexSource = vertexSrc.c_str();
-		glShaderSource(vertexShader, 1, &vertexSource, nullptr);
-		glCompileShader(vertexShader);
-		int isCompiled = 0;
-		glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &isCompiled);
-		if (!isCompiled) {
-			int maxLength = 0;
-			glGetShaderiv(vertexShader, GL_INFO_LOG_LENGTH, &maxLength);
-			std::vector<char> infoLog(maxLength);
-			glGetShaderInfoLog(vertexShader, maxLength, &maxLength, &infoLog[0]);
-			glDeleteShader(vertexShader);
-			
-			XE_CORE_ERROR("{0}", infoLog.data());
-			XE_CORE_ASSERT(false, "Vertex shader compilation failure!");
+	Ref<Shader> Shader::Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc) {
+		switch (Renderer::GetAPI()) {
+		case RendererAPI::API::None: XE_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+		case RendererAPI::API::OpenGL: return std::make_shared<OpenGLShader>(name, vertexSrc, fragmentSrc);
 		}
+		XE_CORE_ASSERT(false, "Unkown RendererAPI");
+		return nullptr;
+	}
 
-		unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-		const char* source = fragmentSrc.c_str();
-		glShaderSource(fragmentShader, 1, &source, nullptr);
-		glCompileShader(fragmentShader);
-		glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &isCompiled);
-		if (!isCompiled) {
-			int maxLength = 0;
-			glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &maxLength);
-			std::vector<char> infoLog(maxLength);
-			glGetShaderInfoLog(fragmentShader, maxLength, &maxLength, &infoLog[0]);
-			glDeleteShader(fragmentShader);
-
-			XE_CORE_ERROR("{0}", infoLog.data());
-			XE_CORE_ASSERT(false, "Fragment shader compilation failure!");
+	Ref<Shader> Shader::Create(const std::string& filePath) {
+		switch (Renderer::GetAPI()) {
+		case RendererAPI::API::None: XE_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+		case RendererAPI::API::OpenGL: return std::make_shared<OpenGLShader>(filePath);
 		}
-
-		m_RendererID = glCreateProgram();
-
-		glAttachShader(m_RendererID, vertexShader);
-		glAttachShader(m_RendererID, fragmentShader);
-		glLinkProgram(m_RendererID);
-		int isLinked = 0;
-		glGetProgramiv(m_RendererID, GL_LINK_STATUS, &isLinked);
-		if (!isLinked) {
-			int maxLength = 0;
-			glGetProgramiv(m_RendererID, GL_INFO_LOG_LENGTH, &maxLength);
-			std::vector<char> infoLog(maxLength);
-			glGetProgramInfoLog(m_RendererID, maxLength, &maxLength, &infoLog[0]);
-			glDeleteProgram(m_RendererID);
-			glDeleteShader(vertexShader);
-			glDeleteShader(fragmentShader);
-			XE_CORE_ERROR("{0}", infoLog.data());
-			XE_CORE_ASSERT(false, "Shader porgram compilation failure!");
-		}
-
-		// ·ÖÀë×ÅÉ«Æ÷
-		glDetachShader(m_RendererID, vertexShader);
-		glDetachShader(m_RendererID, fragmentShader);
-
+		XE_CORE_ASSERT(false, "Unkown RendererAPI");
+		return nullptr;
 	}
 
-	Shader::~Shader(){
-		glDeleteProgram(m_RendererID);
+	void ShaderLibrary::Add(const std::string& name, const Ref<Shader>& shader) {
+		XE_CORE_ASSERT(!Exists(name), "Shader already exisits");
+		m_Shaders[name] = shader;
 	}
 
-	void Shader::Bind() const{
-		glUseProgram(m_RendererID);
+	void ShaderLibrary::Add(const Ref<Shader>& shader) {
+		auto& name = shader->GetName();
+		XE_CORE_ASSERT(!Exists(name), "Shader already exisits");
+		m_Shaders[name] = shader;
+	}
+	Ref<Shader> ShaderLibrary::Load(const std::string& filePath) {
+		auto shader = Shader::Create(filePath);
+		Add(shader);
+		return shader;
+	}
+	Ref<Shader> ShaderLibrary::Load(const std::string& name, const std::string& filePath) {
+
+		auto shader = Shader::Create(filePath);
+		Add(name, shader);
+		return shader;
 	}
 
-	void Shader::Unbind() const{
-		glUseProgram(0);
+	Ref<Shader> ShaderLibrary::Get(const std::string& name) {
+		XE_CORE_ASSERT(Exists(name), "Shader already exisits");
+		return m_Shaders[name];
 	}
+
+	bool ShaderLibrary::Exists(const std::string& name) const {
+		return m_Shaders.find(name) != m_Shaders.end();
+	}
+
 }

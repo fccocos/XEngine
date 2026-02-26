@@ -10,13 +10,13 @@ namespace XEngine {
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 
-		virtual void AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer) = 0; // 希望缓存对象能够引用计数
-		virtual void setIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer) = 0;
+		virtual void AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) = 0; // 希望缓存对象能够引用计数
+		virtual void setIndexBuffer(const Ref<IndexBuffer>& indexBuffer) = 0;
 
-		virtual const std::vector<std::shared_ptr<VertexBuffer>>& GetVertexBuffers() const = 0;
-		virtual const std::shared_ptr<IndexBuffer>& GetIndexBuffers() const = 0;
+		virtual const std::vector<Ref<VertexBuffer>>& GetVertexBuffers() const = 0;
+		virtual const Ref<IndexBuffer>& GetIndexBuffers() const = 0;
 		
 
-		static VertexArray* create();
+		static Ref<VertexArray> create();
 	};
 }

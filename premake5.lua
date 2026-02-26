@@ -3,9 +3,8 @@ workspace "XEngine"
     configurations { "Debug", "Release", "Dist" }
     startproject "Sandbox"
 
-    -- 全局强制设置：所有项目默认使用动态运行时库
     filter "system:windows"
-        staticruntime "Off"  -- 全局禁用静态 CRT
+        staticruntime "On" 
         systemversion "latest"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
@@ -15,6 +14,7 @@ IncludeDir["GLFW"] = "XEngine/vendor/GLFW/include"
 IncludeDir["glad"] = "XEngine/vendor/glad/include"
 IncludeDir["ImGui"] = "XEngine/vendor/imgui"
 IncludeDir["glm"] = "XEngine/vendor/glm"
+IncludeDir["stb_image"] = "XEngine/vendor/stb_image"
 
 include "XEngine/vendor/GLFW"
 include "XEngine/vendor/glad"
@@ -29,7 +29,7 @@ project "XEngine"
     language "C++"
     cppdialect "C++17"
     buildoptions "/utf-8"
-    staticruntime "on"
+    staticruntime "On"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -40,8 +40,10 @@ project "XEngine"
     files {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp",
-        "%{prj.name}/vendor/glm/glm/**.hpp",
-        "%{prj.name}/vendor/glm/glm/**.inl"
+        --"%{prj.name}/vendor/glm/glm/**.hpp",
+        --"%{prj.name}/vendor/glm/glm/**.inl"
+        "%{prj.name}/vendor/stb_image/**.cpp",
+        "%{prj.name}/vendor/stb_image/**.h"
     }
 
     defines {
@@ -53,7 +55,8 @@ project "XEngine"
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.glad}",
         "%{IncludeDir.ImGui}",
-        "%{IncludeDir.glm}"
+        "%{IncludeDir.glm}",
+        "%{IncludeDir.stb_image}"
     }
 
     -- 只链接必要的库，CRT 库由编译选项自动链接（关键！）
@@ -108,7 +111,9 @@ project "Sandbox"
 
     includedirs {
         "XEngine/vendor/spdlog/include",
-        "XEngine/src"
+        "XEngine/src",
+        "%{IncludeDir.glm}",  -- 新增：Sandbox 项目也能找到 GLM 头文件
+        "%{IncludeDir.ImGui}"
     }
 
     links { "XEngine" }

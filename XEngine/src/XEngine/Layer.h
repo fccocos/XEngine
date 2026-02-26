@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "XEngine/core.h"
 #include "XEngine/Event/Event.h"
+#include "XEngine/Core/TimeStep.h"
 namespace XEngine {
 	class XENGINE_API Layer
 	{
@@ -10,7 +11,7 @@ namespace XEngine {
 
 		virtual void OnAttach() {} // 初始化
 		virtual void OnDetach() {} // 接受
-		virtual void OnUpdate() {} // 更新，每针都会发生
+		virtual void OnUpdate(TimeStep timeStep) {} // 更新，每针都会发生
 		virtual void OnImGuiRender() {} // ImGui渲染
 		virtual void Begin() {};
 		virtual void End() {};
