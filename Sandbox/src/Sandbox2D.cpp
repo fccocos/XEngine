@@ -39,9 +39,9 @@ void Sandbox2D::OnUpdate(XEngine::TimeStep timeStep) {
 	XEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 	XEngine::RenderCommand::Clear();
 
-	// TODO: Add these functions - Shader::SetMat4() Shader::SetFloat4()
 	XEngine::Renderer2D::BeginScense(m_CameraController.GetCamera());
-	XEngine::Renderer2D::DrawQuard(glm::vec3(0.0f), glm::vec2(100, 200), glm::vec4(0.8, 0.2, 0.3, 1.0f));
+	XEngine::Renderer2D::DrawQuard(glm::vec2(0.0f), glm::vec2(0.8, 0.8), glm::vec4(0.8, 0.2, 0.3, 1.0f));
+	XEngine::Renderer2D::DrawQuard(glm::vec2(-1.0f, 0.0f), glm::vec2(0.5, 0.5), glm::vec4(0.3, 0.2, 0.8, 1.0f));
 	XEngine::Renderer2D::EndScense();
 }
 
