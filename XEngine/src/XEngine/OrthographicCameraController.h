@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "XEngine/Renderer/OrthographicCamera.h"
 #include "XEngine/Core/TimeStep.h"
@@ -23,7 +23,7 @@ namespace XEngine {
 		bool OnMouseScrolled(MouseScrolledEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
 	private:
-		float m_AspectRatio; // ¿í¸ß±È
+		float m_AspectRatio; // å®½é«˜æ¯”
 		float m_ZoomLevel = 1.0f;
 		OrthographicCamera m_Camera;
 

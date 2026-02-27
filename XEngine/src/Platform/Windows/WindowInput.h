@@ -1,6 +1,6 @@
 #pragma once
 
-#include "XEngine/Input.h"
+#include "XEngine/Core/Input.h"
 
 namespace XEngine {
 	class XENGINE_API WindowInput : public Input

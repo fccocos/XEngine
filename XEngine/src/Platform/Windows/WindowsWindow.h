@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "XEngine/Window.h"
+#include "XEngine/Core/Window.h"
 #include "XEngine/Renderer/GraphicsContext.h"
 
 
@@ -32,11 +32,11 @@ namespace XEngine {
 		GraphicsContext* m_Context;
 
 		struct WindowData {
-			std::string Title;
-			unsigned int Width, Height;
-			bool VSync;
+			std::string Title{};
+			unsigned int Width{}, Height{};
+			bool VSync{};
 
-			EventCallbackFn EventCallback;
+			EventCallbackFn EventCallback{};
 		};
 
 		WindowData m_Data;

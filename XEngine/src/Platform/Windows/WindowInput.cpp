@@ -1,6 +1,6 @@
 #include "xepch.h"
 #include "WindowInput.h"
-#include "XEngine/Application.h"
+#include "XEngine/Core/Application.h"
 #include <GLFW/glfw3.h>
 
 namespace XEngine {

@@ -1,5 +1,5 @@
 #pragma once
-#include "XEngine/core.h"
+#include "core.h"
 
 namespace XEngine {
 	class XENGINE_API Input {

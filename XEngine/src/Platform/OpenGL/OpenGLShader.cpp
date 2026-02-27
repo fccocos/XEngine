@@ -1,4 +1,4 @@
-#include "xepch.h"
+ï»¿#include "xepch.h"
 
 #include "OpenGLShader.h"
 
@@ -33,9 +33,9 @@ namespace XEngine {
 		auto lastSlash = filePath.find_last_of("/\\");
 		lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
 		auto lastDot = filePath.rfind('.');
-		// ¼ÆËã½ØÈ¡³¤¶È
+		// è®¡ç®—æˆªå–é•¿åº¦
 		auto count = (lastDot == std::string::npos || lastDot < lastSlash)
-			? filePath.size() - lastSlash  // ÎŞÀ©Õ¹Ãû »ò . ÔÚÄ¿Â¼ÖĞ£¨Èç "/dir.name/file"£©
+			? filePath.size() - lastSlash  // æ— æ‰©å±•å æˆ– . åœ¨ç›®å½•ä¸­ï¼ˆå¦‚ "/dir.name/file"ï¼‰
 			: lastDot - lastSlash;
 		m_Name = filePath.substr(lastSlash, count);
 
@@ -73,25 +73,25 @@ namespace XEngine {
 	std::unordered_map<unsigned int, std::string> OpenGLShader::PreProcess(const std::string& source) {
 		std::unordered_map<unsigned int, std::string> shaderSources;
 		
-		// »ñÈ¡ÀàĞÍ±êÖ¾: vertex fragment pixel
+		// è·å–ç±»å‹æ ‡å¿—: vertex fragment pixel
 		const char* typeToken = "#type";
 		size_t typeTokenLength = strlen(typeToken);
 		size_t pos = source.find(typeToken, 0);
 		while (pos != std::string::npos) {
-			// ´Ó #typeÖĞ»ñÈ¡vertex fragment
+			// ä» #typeä¸­è·å–vertex fragment
 			size_t eol = source.find_first_of("\r\n", pos);
 			XE_CORE_ASSERT(eol != std::string::npos, "Syntax error");
 			size_t begin = pos + typeTokenLength + 1;
 			std::string type = source.substr(begin, eol - begin);
-			XE_CORE_TRAC(type);
+			//XE_CORE_TRAC(type);
 			XE_CORE_ASSERT(ShaderTypeFromString(type), "Invalid shader type specifier");
 
-			// »ñÈ¡ #type vertex ºóÃæµÄglslÔ´Âë
+			// è·å– #type vertex åé¢çš„glslæºç 
 			size_t nextLinePos = source.find_first_not_of("\r\n", eol);
 			pos = source.find(typeToken, nextLinePos);
 			shaderSources[ShaderTypeFromString(type)] = source.substr(nextLinePos,
 				pos == std::string::npos ? std::string::npos : pos - nextLinePos);
-			XE_CORE_INFO("\n{0}",shaderSources[ShaderTypeFromString(type)]);
+			//XE_CORE_INFO("\n{0}",shaderSources[ShaderTypeFromString(type)]);
 		}
 
 		return shaderSources;
@@ -145,7 +145,7 @@ namespace XEngine {
 			XE_CORE_ASSERT(false, "Shader porgram compilation failure!");
 		}
 
-		// ·ÖÀë×ÅÉ«Æ÷
+		// åˆ†ç¦»ç€è‰²å™¨
 		for (auto id : glShaderIDs)
 			glDetachShader(m_RendererID, id);
 	}

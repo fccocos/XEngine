@@ -2,7 +2,7 @@
 
 #include "xepch.h"
 
-#include "XEngine/core.h"
+#include "XEngine/Core/core.h"
 #include "XEngine/Event/Event.h"
 
 namespace XEngine {
@@ -13,8 +13,8 @@ namespace XEngine {
 		unsigned int Height;
 
 		WindowProps(const std::string& t = "XEngine Engine",
-			unsigned int w = 1280,
-			unsigned int h = 720) :
+			unsigned int w = 1970,
+			unsigned int h = 1080):
 			Title(t), Width(w), Height(h) {
 		}
 

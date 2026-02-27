@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "XEngine/core.h"
+#include "core.h"
 #include "XEngine/Event/Event.h"
 #include "XEngine/Core/TimeStep.h"
 namespace XEngine {

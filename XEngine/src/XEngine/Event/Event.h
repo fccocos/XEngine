@@ -1,7 +1,8 @@
 ﻿#pragma once
 
-#include "XEngine/core.h"
-
+#include "XEngine/Core/core.h"
+#include <string>
+#include <functional>
 
 namespace XEngine {
 	// Events in XEngine are currently blocking, meaning when an event

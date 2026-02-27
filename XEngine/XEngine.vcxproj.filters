@@ -63,14 +63,38 @@
     <ClInclude Include="src\XEngine.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\XEngine\Application.h">
-      <Filter>src\XEngine</Filter>
+    <ClInclude Include="src\XEngine\Core\Application.h">
+      <Filter>src\XEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\XEngine\Core\EntryPoint.h">
+      <Filter>src\XEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\XEngine\Core\Input.h">
+      <Filter>src\XEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\XEngine\Core\KeyCodes.h">
+      <Filter>src\XEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\XEngine\Core\Layer.h">
+      <Filter>src\XEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\XEngine\Core\LayerStack.h">
+      <Filter>src\XEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\XEngine\Core\MouseButtonCodes.h">
+      <Filter>src\XEngine\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\XEngine\Core\TimeStep.h">
       <Filter>src\XEngine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\XEngine\EntryPoint.h">
-      <Filter>src\XEngine</Filter>
+    <ClInclude Include="src\XEngine\Core\Window.h">
+      <Filter>src\XEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\XEngine\Core\core.h">
+      <Filter>src\XEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\XEngine\Core\log.h">
+      <Filter>src\XEngine\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\XEngine\Event\ApplicationEvent.h">
       <Filter>src\XEngine\Event</Filter>
@@ -87,19 +111,7 @@
     <ClInclude Include="src\XEngine\ImGui\ImGuiLayer.h">
       <Filter>src\XEngine\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="src\XEngine\Input.h">
-      <Filter>src\XEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\XEngine\KeyCodes.h">
-      <Filter>src\XEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\XEngine\Layer.h">
-      <Filter>src\XEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\XEngine\LayerStack.h">
-      <Filter>src\XEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\XEngine\MouseButtonCodes.h">
+    <ClInclude Include="src\XEngine\OrthographicCameraController.h">
       <Filter>src\XEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\XEngine\Renderer\Buffer.h">
@@ -117,6 +129,9 @@
     <ClInclude Include="src\XEngine\Renderer\Renderer.h">
       <Filter>src\XEngine\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\XEngine\Renderer\Renderer2D.h">
+      <Filter>src\XEngine\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\XEngine\Renderer\RendererAPI.h">
       <Filter>src\XEngine\Renderer</Filter>
     </ClInclude>
@@ -129,22 +144,12 @@
     <ClInclude Include="src\XEngine\Renderer\VertexArray.h">
       <Filter>src\XEngine\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\XEngine\Window.h">
-      <Filter>src\XEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\XEngine\core.h">
-      <Filter>src\XEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\XEngine\log.h">
-      <Filter>src\XEngine</Filter>
-    </ClInclude>
     <ClInclude Include="src\xepch.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\XEngine\OrthographicCameraController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
@@ -171,8 +176,17 @@
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="src\XEngine\Application.cpp">
-      <Filter>src\XEngine</Filter>
+    <ClCompile Include="src\XEngine\Core\Application.cpp">
+      <Filter>src\XEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\XEngine\Core\Layer.cpp">
+      <Filter>src\XEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\XEngine\Core\LayerStack.cpp">
+      <Filter>src\XEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\XEngine\Core\log.cpp">
+      <Filter>src\XEngine\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\XEngine\ImGui\ImGuiBuild.cpp">
       <Filter>src\XEngine\ImGui</Filter>
@@ -180,10 +194,7 @@
     <ClCompile Include="src\XEngine\ImGui\ImGuiLayer.cpp">
       <Filter>src\XEngine\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\XEngine\Layer.cpp">
-      <Filter>src\XEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\XEngine\LayerStack.cpp">
+    <ClCompile Include="src\XEngine\OrthographicCameraController.cpp">
       <Filter>src\XEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\XEngine\Renderer\Buffer.cpp">
@@ -198,6 +209,9 @@
     <ClCompile Include="src\XEngine\Renderer\Renderer.cpp">
       <Filter>src\XEngine\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\XEngine\Renderer\Renderer2D.cpp">
+      <Filter>src\XEngine\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\XEngine\Renderer\RendererAPI.cpp">
       <Filter>src\XEngine\Renderer</Filter>
     </ClCompile>
@@ -210,15 +224,11 @@
     <ClCompile Include="src\XEngine\Renderer\VertexArray.cpp">
       <Filter>src\XEngine\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\XEngine\log.cpp">
-      <Filter>src\XEngine</Filter>
-    </ClCompile>
     <ClCompile Include="src\xepch.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="vendor\stb_image\std_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\XEngine\OrthographicCameraController.cpp" />
   </ItemGroup>
 </Project>

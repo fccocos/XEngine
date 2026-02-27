@@ -1,12 +1,14 @@
 #include "xepch.h"
 #include "Renderer.h"
 #include "Platform/OpenGL/OpenGLShader.h"
+#include "Renderer2D.h"
 namespace XEngine {
 	RendererAPI::API Renderer::s_RendererAPI = RendererAPI::API::OpenGL;
 	Renderer::ScenseData* Renderer::m_ScenseData = new Renderer::ScenseData;
 
 	void Renderer::Init() {
 		RenderCommand::Init();
+		Renderer2D::Init();
 	}
 
 	void Renderer::OnWindowResize(unsigned int width, unsigned int height) {

@@ -32,7 +32,7 @@ namespace XEngine {
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
-		XE_CORE_TRAC("Create window {0} ({1}, {2})", props.Title, props.Width, props.Height);
+		//XE_CORE_TRAC("Create window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
 		if (!s_GLFWInitialized) {
 			// TODO: glfwTernimate on system shutdown

@@ -1,10 +1,11 @@
 #include "xepch.h"
 #include "ImGuiLayer.h"
-#include "XEngine/Application.h"
+#include "XEngine/Core/Application.h"
 
-#include "XEngine/core.h"
+#include "XEngine/Core/core.h"
 
-#include "XEngine/KeyCodes.h"
+#include "XEngine/Core/KeyCodes.h"
+
 
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"

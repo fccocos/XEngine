@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "XEngine/Core/log.h"
 
 namespace XEngine {
 
@@ -98,7 +99,7 @@ namespace XEngine {
 
 	class VertexBuffer {
 	public:
-		virtual ~VertexBuffer() {}
+		virtual ~VertexBuffer() = default;
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
@@ -106,18 +107,18 @@ namespace XEngine {
 		virtual void SetLayout(const BufferLayout& layout) = 0;
 		virtual const BufferLayout& GetLayout() const = 0;
 
-		static VertexBuffer* create(float* vertices, unsigned int size);
+		static Ref<VertexBuffer> create(float* vertices, unsigned int size);
 	};
 
 	class IndexBuffer {
 	public:
-		virtual ~IndexBuffer() {}
+		virtual ~IndexBuffer() = default;
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 
 		virtual unsigned int GetCount() const = 0;
 
-		static IndexBuffer* create(unsigned int* indices, unsigned int count);
+		static Ref<IndexBuffer> create(unsigned int* indices, unsigned int count);
 	};
 }

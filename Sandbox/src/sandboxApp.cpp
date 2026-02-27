@@ -1,11 +1,10 @@
 ﻿#include <xepch.h>
 #include <XEngine.h>
+#include <XEngine/Core/EntryPoint.h>
 
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "Platform/OpenGL/OpenGLShader.h"
-#include "Platform/OpenGL/OpenGLTexture.h"
-
+#include "Sandbox2D.h"
 
 #include "imgui.h"
 
@@ -21,7 +20,7 @@ public:
 		};
 		// 创建 vertexBuffer
 		std::shared_ptr<XEngine::VertexBuffer> m_VertexBuffer;
-		m_VertexBuffer.reset(XEngine::VertexBuffer::create(vertices, sizeof(vertices)));
+		m_VertexBuffer = XEngine::VertexBuffer::create(vertices, sizeof(vertices));
 		// 顶点布局
 		XEngine::BufferLayout layout = {
 			{XEngine::ShaderDataType::Float3, "a_Position"},
@@ -35,7 +34,7 @@ public:
 		// 创建 IndexBuffer
 		unsigned int indices[3] = { 0, 1, 2 };
 		std::shared_ptr<XEngine::IndexBuffer> m_IndexBuffer;
-		m_IndexBuffer.reset(XEngine::IndexBuffer::create(indices, sizeof(indices) / sizeof(unsigned int)));
+		m_IndexBuffer = XEngine::IndexBuffer::create(indices, sizeof(indices) / sizeof(unsigned int));
 		m_VertexArray->setIndexBuffer(m_IndexBuffer);
 
 		// 创建 VAO
@@ -48,7 +47,7 @@ public:
 		};
 		// 创建VBO
 		std::shared_ptr<XEngine::VertexBuffer> squareVB;
-		squareVB.reset(XEngine::VertexBuffer::create(squareVertices, sizeof(squareVertices)));
+		squareVB= XEngine::VertexBuffer::create(squareVertices, sizeof(squareVertices));
 		// 顶点布局
 		squareVB->SetLayout({ 
 			{ XEngine::ShaderDataType::Float3, "a_Position" } ,
@@ -59,7 +58,7 @@ public:
 		// 创建 IndexBuffer
 		unsigned int squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
 		std::shared_ptr<XEngine::IndexBuffer> squareIB;
-		squareIB.reset(XEngine::IndexBuffer::create(squareIndices, sizeof(squareIndices) / sizeof(unsigned int)));
+		squareIB = XEngine::IndexBuffer::create(squareIndices, sizeof(squareIndices) / sizeof(unsigned int));
 		// 添加 IBO
 		m_SquareVA->setIndexBuffer(squareIB);
 
@@ -166,7 +165,6 @@ public:
 		auto textureShader = m_ShaderLibrary.Get("Texture");
 
 		m_Texture2D->Bind();
-		
 		XEngine::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 		m_FaceTexture2D->Bind();
 		XEngine::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
@@ -223,7 +221,8 @@ private:
 class Sandbox :public XEngine::Application {
 public:
 	Sandbox() {
-		PushLayer(new ExampleLayer());
+		//PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox2D());
 	}
 	~Sandbox() {}
 };

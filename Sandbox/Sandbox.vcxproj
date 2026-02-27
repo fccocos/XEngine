@@ -143,9 +143,11 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Sandbox2D.h" />
     <ClInclude Include="src\sbphc.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Sandbox2D.cpp" />
     <ClCompile Include="src\sandboxApp.cpp" />
     <ClCompile Include="src\sbphc.cpp" />
   </ItemGroup>
@@ -153,9 +155,6 @@
     <ProjectReference Include="..\XEngine\XEngine.vcxproj">
       <Project>{D342B922-3F22-38BE-483A-C394B4989E1F}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assert\Shaders\Texture.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

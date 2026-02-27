@@ -13,13 +13,14 @@
 #include <cstdarg>    // 解决 va_list 未定义
 #include <utility>    // 解决模板/通用工具类问题
 #include <type_traits> // 解决类型推导相关问题
+#include <filesystem> // 文件系统
 
 #include <string>
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
 
-#include "XEngine/log.h"
+#include "XEngine/Core/log.h"
 
 #ifdef XE_PLATFORM_WINDOWS
 
