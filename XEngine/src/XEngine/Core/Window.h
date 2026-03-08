@@ -13,8 +13,8 @@ namespace XEngine {
 		unsigned int Height;
 
 		WindowProps(const std::string& t = "XEngine Engine",
-			unsigned int w = 1970,
-			unsigned int h = 1080):
+			unsigned int w = 2048,
+			unsigned int h = 1536):
 			Title(t), Width(w), Height(h) {
 		}
 

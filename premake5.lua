@@ -15,11 +15,13 @@ IncludeDir["glad"] = "XEngine/vendor/glad/include"
 IncludeDir["ImGui"] = "XEngine/vendor/imgui"
 IncludeDir["glm"] = "XEngine/vendor/glm"
 IncludeDir["stb_image"] = "XEngine/vendor/stb_image"
+IncludeDir["entt"] = "XEngine/vendor/entt/include"
 
-include "XEngine/vendor/GLFW"
-include "XEngine/vendor/glad"
-include "XEngine/vendor/imgui"
-
+group "Dependencies"
+    include "XEngine/vendor/GLFW"
+    include "XEngine/vendor/glad"
+    include "XEngine/vendor/imgui"
+group ""
 ------------------------------------------------------------------------
 ------------------------ XEngine 项目 -----------------------------------
 -------------------------------------------------------------------------
@@ -56,7 +58,8 @@ project "XEngine"
         "%{IncludeDir.glad}",
         "%{IncludeDir.ImGui}",
         "%{IncludeDir.glm}",
-        "%{IncludeDir.stb_image}"
+        "%{IncludeDir.stb_image}",
+        "%{IncludeDir.entt}"
     }
 
     -- 只链接必要的库，CRT 库由编译选项自动链接（关键！）
@@ -112,8 +115,9 @@ project "Sandbox"
     includedirs {
         "XEngine/vendor/spdlog/include",
         "XEngine/src",
-        "%{IncludeDir.glm}",  -- 新增：Sandbox 项目也能找到 GLM 头文件
-        "%{IncludeDir.ImGui}"
+        "%{IncludeDir.glm}",
+        "%{IncludeDir.ImGui}",
+        "%{IncludeDir.entt}"
     }
 
     links { "XEngine" }
@@ -123,6 +127,7 @@ project "Sandbox"
             "XE_PLATFORM_WINDOWS",
             "_CRT_SECURE_NO_WARNINGS"
         }
+        systemversion "latest"
 
     filter "configurations:Debug"
         defines {"XE_DEBUG"}
@@ -138,3 +143,58 @@ project "Sandbox"
         defines {"XE_DIST"}
         runtime "Release"
         optimize "On"
+
+
+ -----------------------------------------------------------------------------------
+---------------------------------- XEGUI -------------------------------------
+-----------------------------------------------------------------------------------
+project "XEGUI"
+    location "XEGUI"
+    kind "ConsoleApp"
+    language "C++"
+    cppdialect "C++17"
+    buildoptions "/utf-8"
+    staticruntime "On"
+
+    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+    files {
+        "%{prj.name}/src/**.h",
+        "%{prj.name}/src/**.cpp",
+    }
+
+    includedirs {
+        "XEngine/vendor/spdlog/include",
+        "XEngine/src",
+        "%{IncludeDir.glm}",
+        "%{IncludeDir.ImGui}",
+        "%{IncludeDir.entt}"
+    }
+
+    links { "XEngine" }
+
+    filter "system:windows"
+        defines {
+            "XE_PLATFORM_WINDOWS",
+            "_CRT_SECURE_NO_WARNINGS"
+        }
+        systemversion "latest"
+
+    filter "configurations:Debug"
+        defines {"XE_DEBUG"}
+        runtime "Debug"
+        symbols "On"
+
+    filter "configurations:Release"
+        defines {"XE_RELEASE"}
+        runtime "Release"
+        optimize "On"
+
+    filter "configurations:Dist"
+        defines {"XE_DIST"}
+        runtime "Release"
+        optimize "On"
+
+
+--- includeexternal("subproject.lua")

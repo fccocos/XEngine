@@ -18,6 +18,7 @@ namespace XEngine {
 		virtual void SetInt2(const std::string& name, const glm::ivec2& value)  = 0;
 		virtual void SetInt3(const std::string& name, const glm::ivec3& value)  = 0;
 		virtual void SetInt4(const std::string& name, const glm::ivec4& value)  = 0;
+		virtual void SetIntArray(const std::string& name, int* values, unsigned int count) = 0;
 		virtual void SetMat2(const std::string& name, const glm::mat2& value)   = 0;
 		virtual void SetMat3(const std::string& name, const glm::mat3& value)   = 0;
 		virtual void SetMat4(const std::string& name, const glm::mat4& value) = 0;

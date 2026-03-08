@@ -8,7 +8,8 @@ namespace XEngine {
 	OrthographicCameraController::OrthographicCameraController(float aspectRatio, bool rotation) :
 		m_AspectRatio(aspectRatio),
 		m_Camera(-m_AspectRatio*m_ZoomLevel, m_AspectRatio*m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel),
-		m_Rotation(rotation){
+		m_Rotation(rotation), 
+		m_Bounds{0.0f} {
 
 	}
 
@@ -31,7 +32,7 @@ namespace XEngine {
 				m_CameraRotation += m_CameraRotationSpeed * ts;
 			m_Camera.SetRotation(m_CameraRotation);
 		}
-
+		ReCalculateView();
 		m_Camera.SetPosition(m_CameraPosition);
 	}
 
@@ -45,13 +46,27 @@ namespace XEngine {
 
 	bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& e) {
 		m_ZoomLevel -= e.GetYOffset();
-		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
+		ReCalculateView();
 		return false;
 	}
 
 	bool OrthographicCameraController::OnWindowResize(WindowResizeEvent& e) {
-		m_ZoomLevel = (float)e.GetWidth()/(float)e.GetHeigth();
-		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
+		OnResizeOrthographicCameraBounds(static_cast<float>(e.GetWidth()),static_cast<float>(e.GetHeigth()));
 		return false;
+	}
+
+	void OrthographicCameraController::ReCalculateView() {
+		m_Bounds = { -m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel };
+		m_Camera.SetProjection(m_Bounds.Left, m_Bounds.Right, m_Bounds.Bottom, m_Bounds.Top);
+	}
+
+	void OrthographicCameraController::OnResizeOrthographicCameraBounds(float width, float height) {
+		m_AspectRatio = width / height;
+		m_Bounds = { -m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel };
+		m_Camera.SetProjection(m_Bounds.Left, m_Bounds.Right, m_Bounds.Bottom, m_Bounds.Top);
+	}
+
+	void OrthographicCameraController::OnResizeOrthographicCameraBounds(const glm::vec2& size) {
+		OnResizeOrthographicCameraBounds(size.x, size.y);
 	}
 }

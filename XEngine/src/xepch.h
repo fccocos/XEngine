@@ -1,7 +1,5 @@
 ﻿
 // XEngine pre-compile header file
-
-
 #pragma once
 
 #include <memory>
@@ -21,9 +19,9 @@
 #include <unordered_set>
 
 #include "XEngine/Core/log.h"
+#include "XEngine/Debug/Instrumentor.h"
+
 
 #ifdef XE_PLATFORM_WINDOWS
-
 #include <Windows.h>
-
 #endif

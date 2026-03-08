@@ -5,8 +5,11 @@
 namespace XEngine {
 
 	void OpenGLRendererAPI::Init() {
+		
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC1_ALPHA);
+		glEnable(GL_DEPTH_TEST);
+		
 	}
 	void OpenGLRendererAPI::SetViewport(unsigned int x, unsigned int y, unsigned int width, unsigned int height) {
 		glViewport(x, y, width, height);
@@ -21,5 +24,13 @@ namespace XEngine {
 
 	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray){
 		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffers()->GetCount(), GL_UNSIGNED_INT, nullptr);
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+
+	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray, unsigned int indexCount) {
+
+		unsigned int count = indexCount==0 ? vertexArray->GetIndexBuffers()->GetCount() : indexCount;
+		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 }

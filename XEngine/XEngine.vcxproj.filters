@@ -19,6 +19,9 @@
     <Filter Include="src\XEngine\Core">
       <UniqueIdentifier>{82C99CB5-6EC2-BB07-97F4-A08C834C9B13}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\XEngine\Debug">
+      <UniqueIdentifier>{E0544269-4C6B-40FF-95E2-CB2001381187}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\XEngine\Event">
       <UniqueIdentifier>{BBCB5D69-27E2-5BFF-7059-E720DCAE2C87}</UniqueIdentifier>
     </Filter>
@@ -27,6 +30,9 @@
     </Filter>
     <Filter Include="src\XEngine\Renderer">
       <UniqueIdentifier>{D06DF12E-BCFC-7AF8-651B-8FF351898B9E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\XEngine\Renderer\ParticleSystem">
+      <UniqueIdentifier>{B8D913F8-2493-7EA2-ADF2-987C19AB3412}</UniqueIdentifier>
     </Filter>
     <Filter Include="vendor">
       <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
@@ -42,6 +48,9 @@
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
@@ -53,9 +62,6 @@
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h">
       <Filter>src\Platform\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Platform\Windows\WindowInput.h">
-      <Filter>src\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>src\Platform\Windows</Filter>
@@ -87,6 +93,9 @@
     <ClInclude Include="src\XEngine\Core\TimeStep.h">
       <Filter>src\XEngine\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\XEngine\Core\Utils.h">
+      <Filter>src\XEngine\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\XEngine\Core\Window.h">
       <Filter>src\XEngine\Core</Filter>
     </ClInclude>
@@ -95,6 +104,9 @@
     </ClInclude>
     <ClInclude Include="src\XEngine\Core\log.h">
       <Filter>src\XEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\XEngine\Debug\Instrumentor.h">
+      <Filter>src\XEngine\Debug</Filter>
     </ClInclude>
     <ClInclude Include="src\XEngine\Event\ApplicationEvent.h">
       <Filter>src\XEngine\Event</Filter>
@@ -117,11 +129,23 @@
     <ClInclude Include="src\XEngine\Renderer\Buffer.h">
       <Filter>src\XEngine\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\XEngine\Renderer\Framebuffer.h">
+      <Filter>src\XEngine\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\XEngine\Renderer\GraphicsContext.h">
       <Filter>src\XEngine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\XEngine\Renderer\OrthographicCamera.h">
       <Filter>src\XEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\XEngine\Renderer\ParticleSystem\Particle.h">
+      <Filter>src\XEngine\Renderer\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\XEngine\Renderer\ParticleSystem\ParticleRulesConfig.h">
+      <Filter>src\XEngine\Renderer\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\XEngine\Renderer\ParticleSystem\Random.h">
+      <Filter>src\XEngine\Renderer\ParticleSystem</Filter>
     </ClInclude>
     <ClInclude Include="src\XEngine\Renderer\RenderCommand.h">
       <Filter>src\XEngine\Renderer</Filter>
@@ -138,6 +162,9 @@
     <ClInclude Include="src\XEngine\Renderer\Shader.h">
       <Filter>src\XEngine\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\XEngine\Renderer\SubTexture2D.h">
+      <Filter>src\XEngine\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\XEngine\Renderer\Texture.h">
       <Filter>src\XEngine\Renderer</Filter>
     </ClInclude>
@@ -150,12 +177,22 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="src\XEngine\Scene\Entity.h" />
+    <ClInclude Include="src\XEngine\Scene\Components.h" />
+    <ClInclude Include="src\XEngine\Scene\Scene.h" />
+    <ClInclude Include="src\XEngine\Renderer\Camera.h" />
+    <ClInclude Include="src\XEngine\Scene\ScriptableEnttity.h" />
+    <ClInclude Include="src\XEngine\Scene\SceneCamera.h" />
+    <ClInclude Include="src\XEngine\ImGui\FontLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp">
@@ -200,8 +237,14 @@
     <ClCompile Include="src\XEngine\Renderer\Buffer.cpp">
       <Filter>src\XEngine\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\XEngine\Renderer\Framebuffer.cpp">
+      <Filter>src\XEngine\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\XEngine\Renderer\OrthographicCamera.cpp">
       <Filter>src\XEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\XEngine\Renderer\ParticleSystem\Particle.cpp">
+      <Filter>src\XEngine\Renderer\ParticleSystem</Filter>
     </ClCompile>
     <ClCompile Include="src\XEngine\Renderer\RenderCommand.cpp">
       <Filter>src\XEngine\Renderer</Filter>
@@ -218,6 +261,9 @@
     <ClCompile Include="src\XEngine\Renderer\Shader.cpp">
       <Filter>src\XEngine\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\XEngine\Renderer\SubTexture2D.cpp">
+      <Filter>src\XEngine\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\XEngine\Renderer\Texture.cpp">
       <Filter>src\XEngine\Renderer</Filter>
     </ClCompile>
@@ -230,5 +276,9 @@
     <ClCompile Include="vendor\stb_image\std_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\XEngine\Scene\Entity.cpp" />
+    <ClCompile Include="src\XEngine\Scene\Scene.cpp" />
+    <ClCompile Include="src\XEngine\Scene\SceneCamera.cpp" />
+    <ClCompile Include="src\XEngine\ImGui\FontLoader.cpp" />
   </ItemGroup>
 </Project>

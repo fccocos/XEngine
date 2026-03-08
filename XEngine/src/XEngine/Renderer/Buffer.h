@@ -107,7 +107,11 @@ namespace XEngine {
 		virtual void SetLayout(const BufferLayout& layout) = 0;
 		virtual const BufferLayout& GetLayout() const = 0;
 
+		virtual void SetData(void* data, unsigned int size) = 0;
+
+		static Ref<VertexBuffer> create(unsigned int size);
 		static Ref<VertexBuffer> create(float* vertices, unsigned int size);
+		
 	};
 
 	class IndexBuffer {
@@ -119,6 +123,8 @@ namespace XEngine {
 
 		virtual unsigned int GetCount() const = 0;
 
+		static Ref<IndexBuffer> create(unsigned int count);
 		static Ref<IndexBuffer> create(unsigned int* indices, unsigned int count);
+		
 	};
 }

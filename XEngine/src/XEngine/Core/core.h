@@ -1,12 +1,12 @@
 ﻿#pragma once
 #include <memory>
-
+#include <string.h>
 // Platform detection using predefined macros
 #ifdef _WIN32
 	/* Windows X64/X86 */
 #	ifdef _WIN64
 		/* Windows X64 */
-#		define HZ_PLAFROM_WINDOWS
+#		define XE_PLAFROM_WINDOWS
 #	else
 #		error "x86 Builds are not supported!"
 #   endif
@@ -21,10 +21,10 @@
 #	if TARGET_IPHONE_SIMULATOR == 1
 #		error "IOS simulator is not supported"
 #	elif TARGET_OS_IPHONE == 1
-#		define HZ_PLATFORM_IOS
+#		define XE_PLATFORM_IOS
 #		error "IOS is not supported"
 #	elif TARGET_OS_MAC == 1
-#		define HZ_PLATFORM_MACOS
+#		define XE_PLATFORM_MACOS
 #		error "MacOS is not supported"
 #	else
 #		error "Unkown Apple platform"
@@ -64,8 +64,18 @@ namespace XEngine {
 
 	template<typename T>
 	using Scope = std::unique_ptr<T>;
+	template<typename T, typename ... Args>
+	constexpr Scope<T> CreateScope(Args&& ... args) {
+		return std::make_unique<T>(std::forward<Args>(args)...);
+	}
 
 	template<typename T>
 	using Ref = std::shared_ptr<T>;
+	template<typename T, typename ... Args>
+	constexpr Ref<T> CreateRef(Args&& ... args) {
+		return std::make_shared<T>(std::forward<Args>(args)...);
+	}
 
 }
+
+

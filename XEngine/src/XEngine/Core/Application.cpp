@@ -1,15 +1,6 @@
 ﻿#include "xepch.h"
-
+#include "XEngine/Core/TimeStep.h"
 #include "Application.h"
-
-#include "XEngine/Event/ApplicationEvent.h"
-#include "log.h"
-#include "spdlog/fmt/ostr.h"
-
-#include "Input.h"
-#include "XEngine/Renderer/Buffer.h"
-
-#include "XEngine/Renderer/RenderCommand.h"
 #include "XEngine/Renderer/Renderer.h"
 
 #include <GLFW/glfw3.h>
@@ -26,6 +17,19 @@ namespace XEngine {
 		XE_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 		m_Window = std::unique_ptr<Window>(Window::Create());
+		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+		m_Window->SetVSync(true);
+
+		Renderer::Init();
+
+		m_ImGuiLayer = new ImGuiLayer();
+		PushOverlay(m_ImGuiLayer);
+	}
+
+	Application::Application(const std::string& name) {
+		XE_CORE_ASSERT(!s_Instance, "Application already exists!");
+		s_Instance = this;
+		m_Window = std::unique_ptr<Window>(Window::Create(WindowProps(name)));
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 		m_Window->SetVSync(true);
 
@@ -84,6 +88,10 @@ namespace XEngine {
 
 			m_Window->OnUpdate();
 		}
+	}
+
+	void Application::close() {
+		m_Running = false;
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e) {

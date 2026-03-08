@@ -5,3 +5,10 @@ bin-int
 
 # Files
 *.user
+
+XEGUI/XEngineProfile-Runtime.json
+XEGUI/XEngineProfile-Shutdown.json
+XEGUI/XEngineProfile-Stratup.json
+Sanbox/XEngineProfile-Runtime.json
+Sanbox/XEngineProfile-Shutdown.json
+Sanbox/XEngineProfile-Stratup.json

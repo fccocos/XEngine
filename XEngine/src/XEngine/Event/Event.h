@@ -6,7 +6,7 @@
 
 namespace XEngine {
 	// Events in XEngine are currently blocking, meaning when an event
-	// occurs it immediately gets dispatched and must be dealt with rigth
+	// occurs it immediately gets dispatched and must be dealt with right
 	// then an there.
 	// For the future, a better strategy might be to buffer events in an
 	// event bus and process them during the “event" part of the udpate stage
@@ -15,7 +15,7 @@ namespace XEngine {
 		None = 0,                                                             // 没有事件发生
 		WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved, // 窗口事件
 		AppTick, AppUpdate, AppRender,                                        // App事件
-		KeyPressed, KeyReleased, KeyTyped,                                             // 按键事件
+		KeyPressed, KeyReleased, KeyTyped,                                    // 按键事件
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled,   // 鼠标事件
 	};
 
@@ -46,6 +46,7 @@ namespace XEngine {
 		virtual std::string ToString() const { return GetName(); }
 
 		inline bool Handled() const { return m_Handled; }
+		inline void setHandled(bool flag) { m_Handled = flag; }
 		inline bool IsInCategory(EventCategory category) const { return GetCategoryFlags() & category; } // 用于判别事件所属分类
 	protected:
 		bool m_Handled = false; // 用于标志事件是否被处理了

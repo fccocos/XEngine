@@ -7,32 +7,27 @@
 
 #include "XEngine/ImGui/ImGuiLayer.h"
 
-#include "XEngine/Renderer/Shader.h"
-
-#include "XEngine/Renderer/Buffer.h"
-
-#include "XEngine/Renderer/VertexArray.h"
-
-#include "XEngine/Renderer/OrthographicCamera.h"
-
-#include "XEngine/Core/TimeStep.h"
-
 namespace  XEngine {
 	class XENGINE_API Application
 	{
 	public:
 		Application();
+		Application(const std::string& name);
 		virtual ~Application();
 		void OnEvent(Event& e); // 注册事件函数
 		void run();
+		void close();
 
 		void PushLayer(Layer* layer); // 压入层
 		void PushOverlay(Layer* layer); // 压入覆盖层，具有优先渲染权
+
+		
 
 		static inline Application& Get() { return *s_Instance; }
 
 		inline Window& GetWindow() const { return *m_Window; }
 
+		inline ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer; }
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);

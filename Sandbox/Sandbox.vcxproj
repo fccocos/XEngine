@@ -79,7 +79,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>XE_PLATFORM_WINDOWS;_CRT_SECURE_NO_WARNINGS;XE_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\XEngine\vendor\spdlog\include;..\XEngine\src;..\XEngine\vendor\glm;..\XEngine\vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\XEngine\vendor\spdlog\include;..\XEngine\src;..\XEngine\vendor\glm;..\XEngine\vendor\imgui;..\XEngine\vendor\entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -99,7 +99,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>XE_PLATFORM_WINDOWS;_CRT_SECURE_NO_WARNINGS;XE_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\XEngine\vendor\spdlog\include;..\XEngine\src;..\XEngine\vendor\glm;..\XEngine\vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\XEngine\vendor\spdlog\include;..\XEngine\src;..\XEngine\vendor\glm;..\XEngine\vendor\imgui;..\XEngine\vendor\entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -123,7 +123,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>XE_PLATFORM_WINDOWS;_CRT_SECURE_NO_WARNINGS;XE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\XEngine\vendor\spdlog\include;..\XEngine\src;..\XEngine\vendor\glm;..\XEngine\vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\XEngine\vendor\spdlog\include;..\XEngine\src;..\XEngine\vendor\glm;..\XEngine\vendor\imgui;..\XEngine\vendor\entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>

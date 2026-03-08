@@ -181,7 +181,7 @@ public:
 		if (e.GetEventType() == XEngine::EventType::WindowResize) {
 			auto& re = (XEngine::WindowResizeEvent&)e;
 
-			float zoom = re.GetWidth();
+			float zoom = static_cast<float>(re.GetWidth());
 		}
 
 	}

@@ -21,6 +21,7 @@ namespace XEngine {
 		void SetInt2(const std::string& name, const glm::ivec2& value)  override;
 		void SetInt3(const std::string& name, const glm::ivec3& value)  override;
 		void SetInt4(const std::string& name, const glm::ivec4& value)  override;
+		void SetIntArray(const std::string& name, int* values, unsigned int count) override;
 		void SetMat2(const std::string& name, const glm::mat2& value)   override;
 		void SetMat3(const std::string& name, const glm::mat3& value)   override;
 		void SetMat4(const std::string& name, const glm::mat4& value)   override;
@@ -34,6 +35,7 @@ namespace XEngine {
 		void UploadUniformInt2(const std::string& name, const glm::ivec2& value);
 		void UploadUniformInt3(const std::string& name, const glm::ivec3& value);
 		void UploadUniformInt4(const std::string& name, const glm::ivec4& value);
+		void UploadUniformIntArray(const std::string& name, int* values, unsigned int count);
 
 		void UploadUniformMat2(const std::string& name, const glm::mat2& value);
 		void UploadUniformMat3(const std::string& name, const glm::mat3& value);

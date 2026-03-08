@@ -1,5 +1,6 @@
 #pragma once
 #include "XEngine/Core/core.h"
+#include "XEngine/ImGui/ImGuiLayer.h"
 #include "Layer.h"
 #include <vector>
 
@@ -14,8 +15,11 @@ namespace XEngine {
 		void PopLayer(Layer* layer);
 		void PopOverlay(Layer* overlay);
 
+		
+
 		std::vector<Layer*>::iterator begin() { return m_Layers.begin(); }
 		std::vector<Layer*>::iterator end() { return m_Layers.end(); }
+	
 	private:
 		std::vector<Layer*> m_Layers;
 		unsigned int m_LayerInsertIndex = 0;

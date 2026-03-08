@@ -20,8 +20,7 @@ namespace XEngine {
 }
 
 
-inline const char* get_filename(const char* full_path) {
-	// 兼容 Windows(\) 和 Linux(/) 路径分隔符
+static const char* get_filename(const char* full_path) {
 	const char* last_slash = strrchr(full_path, '/');
 	const char* last_backslash = strrchr(full_path, '\\');
 	const char* sep = (last_backslash && last_backslash > last_slash) ? last_backslash : last_slash;

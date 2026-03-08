@@ -193,6 +193,11 @@ namespace XEngine {
 		glUniform4i(location, value.x, value.y, value.z, value.w);
 	}
 
+	void OpenGLShader::SetIntArray(const std::string& name, int* values, unsigned int count) {
+		UploadUniformIntArray(name, values, count);
+	}
+	
+
 	void OpenGLShader::SetMat2(const std::string& name, const glm::mat2& value) {
 		int location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniformMatrix2fv(location, 1, GL_FALSE, glm::value_ptr(value));
@@ -240,6 +245,11 @@ namespace XEngine {
 	void OpenGLShader::UploadUniformInt4(const std::string& name, const glm::ivec4& value) {
 		int location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform4i(location, value.x, value.y, value.z, value.w);
+	}
+
+	void OpenGLShader::UploadUniformIntArray(const std::string& name, int* values, unsigned int count) {
+		int location = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniform1iv(location, count, values);
 	}
 
 	void OpenGLShader::UploadUniformMat2(const std::string& name, const glm::mat2& value) {
